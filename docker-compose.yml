@@ -1,1 +1,31 @@
-# Your Solution
+services:
+  book_catalog:
+    build: ./book_catalog
+    ports:
+      - "4000:5000"
+    depends_on:
+      - postgres
+    environment:
+      - POSTGRES_USER=your_username
+      - POSTGRES_PASSWORD=your_password
+      - POSTGRES_DB=bookdb
+
+  inventory_management:
+    build: ./inventory_management
+    ports:
+      - "4001:5000"
+    depends_on:
+      - postgres
+    environment:
+      - POSTGRES_USER=your_username
+      - POSTGRES_PASSWORD=your_password
+      - POSTGRES_DB=inventorydb
+
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: your_username
+      POSTGRES_PASSWORD: your_password
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
